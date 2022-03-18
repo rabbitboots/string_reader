@@ -33,18 +33,18 @@ Tested on LuaJIT 2.1.0 beta 3, Lua 5.4, and the LÖVE 11.4 Appimage (ebe628e).
 ## Public Functions
 
 `stringReader.new([str], [opts])`: Creates a reader object.
-`str`: The string to attach to the reader. *Default: empty string.*
-`options`: A table of options to pass in.
-`options.terse_errors`: If true, all error messages display "Parsing failed." only. *Default: false*
-`options.hide_line_num`: If true, line numbers are not included in error messages. This is overridden by `terse_errors`. *Default: false*
-`options.hide_char_num`: If true, per-line character numbers are not included in error messages. This is overridden by `hide_line_num`. *Default: false*
+* `str`: The string to attach to the reader. *Default: empty string.*
+* `options`: A table of options to pass in.
+* `options.terse_errors`: If true, all error messages display "Parsing failed." only. *Default: false*
+* `options.hide_line_num`: If true, line numbers are not included in error messages. This is overridden by `terse_errors`. *Default: false*
+* `options.hide_char_num`: If true, per-line character numbers are not included in error messages. This is overridden by `hide_line_num`. *Default: false*
 
 
 Reader variables of interest:
 
-`self.str`: A reference to the current string.
-`self.pos`: Current position in the string, in bytes. The position may exceed the size of the string, but a value less than 1 is invalid.
-`self.c[1..9]`: A table that holds the results of string captures, in the range of 1 to 9. (NOTE: Most method calls reset all capture registers to nil as a first step.)
+* `self.str`: A reference to the current string.
+* `self.pos`: Current position in the string, in bytes. The position may exceed the size of the string, but a value less than 1 is invalid.
+* `self.c[1..9]`: A table that holds the results of string captures, in the range of 1 to 9. (NOTE: Most method calls reset all capture registers to nil as a first step.)
 
 
 `stringReader.lineNum(str, pos)`: Returns the line number and character number at byte-position `pos` in string `str`, or `"(End of String)"` if the reader position exceeds the string size, or `"(Out of bounds)"` if `pos` is less than 1.
