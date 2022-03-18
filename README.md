@@ -5,7 +5,7 @@ Wrappers for Lua string functions.
 
 ## Behavior
 
-StringReader provides a *reader* object which can march through a string in linear order. This object combines search methods with an internal position index. Generally, when a search is successful, the position advances past the successful match region, and when unsuccessful, it stays put (or throws an error.)
+StringReader provides a *reader* object which can march through a string in linear order. This object combines search methods with an internal position index. Generally, when a search is successful, the position advances past the match region, and when unsuccessful, it stays put (or throws an error.)
 
 
 ### Terms
@@ -17,7 +17,7 @@ StringReader provides a *reader* object which can march through a string in line
 
 ### Error Messages
 
-The built-in errors do not emit any direct contents of the string. They may list argument numbers, types, line positions, and UTF-8 octet details. (Alternatively, the reader can be configured to just display "parsing failed" with a debug traceback.) If you need additional information while debugging, you can add print() calls in the codepaths where the error occurs. You can also get some information about the reader state by using the `self:_status()` method (needs to be uncommented -- see bottom of source file.)
+The built-in errors do not emit any direct contents of the string. They can display argument numbers, types, line positions, and UTF-8 octet details. (Alternatively, the reader can be configured to just display "parsing failed" with a debug traceback.) If you need additional information while debugging, you can add print() calls in the codepaths where the error occurs. You can also get some information about the reader state by using the `self:_status()` method (needs to be uncommented -- see bottom of source file.)
 
 
 ### strict.lua
