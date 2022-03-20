@@ -1,9 +1,8 @@
--- Prerelease -- 2022-03-18
-local path = ... and (...):match("(.-)[^%.]+$") or ""
+--local path = ... and (...):match("(.-)[^%.]+$") or ""
 
 local errTest = {
-	_VERSION = "0.9.1", -- Prerelease, packaged with stringReader
-	--_URL = "n/a: pending initial release",
+	_VERSION = "1.0.0",
+	_URL = "https://github.com/rabbitboots/err_test",
 	_DESCRIPTION = "A module for testing pcall-wrapped error calls in functions.",
 	_LICENSE = [[
 	Copyright (c) 2022 RBTS
@@ -51,7 +50,7 @@ local _registry = {}
 
 -- Assertions
 
-local function _assertType(arg_n, var, allowed_types)
+local function _assertArgType(arg_n, var, allowed_types)
 	-- 'allowed_types' can be a single string or a table sequence of strings.
 	if type(allowed_types) == "table" then
 		for i, type_enum in ipairs(allowed_types) do
@@ -70,21 +69,6 @@ local allowed_nil_str = {"nil", "string"}
 -- / Assertions
 
 -- Helpers
-
-local function _try(func, ...)
-	return pcall(func, ...)
-end
-
-
-local function _okErrTry(func, ...)
-	return func(...)
-end
-
-
-local function _getLabel(func)
-	return _registry[func] or ""
-end
-
 
 local function _varargsToString(...)
 	-- (Track number of args so we can step over nil sequence gaps.)
@@ -110,6 +94,22 @@ local function _varargsToString(...)
 	return table.concat(arguments_t, ", ")
 end
 
+
+local function _try(func, ...)
+	return pcall(func, ...)
+end
+
+
+local function _okErrTry(func, ...)
+	return func(...)
+end
+
+
+local function _getLabel(func)
+	return _registry[func] or ""
+end
+
+
 -- / Helpers
 
 -- Public Interface
@@ -120,8 +120,8 @@ end
 -- @return The provided label string (to help with constructing print messages.)
 function errTest.register(func, label)
 
-	_assertType(1, func, "function")
-	_assertType(2, label, allowed_nil_str)
+	_assertArgType(1, func, "function")
+	_assertArgType(2, label, allowed_nil_str)
 
 	if label then
 		if _registry[func] then
@@ -155,7 +155,7 @@ end
 -- @return the first two results of the wrapped pcall (first is true on success run, false if not)
 function errTest.try(func, ...)
 
-	_assertType(1, func, "function")
+	_assertArgType(1, func, "function")
 	io.write("(try) " .. _getLabel(func) .. "(" .. _varargsToString(...)  .. "): ")
 	io.flush()
 
@@ -178,7 +178,7 @@ end
 -- @return Nothing.
 function errTest.expectPass(func, ...)
 
-	_assertType(1, func, "function")
+	_assertArgType(1, func, "function")
 	io.write("(expectPass) " .. _getLabel(func) .. "(" .. _varargsToString(...)  .. "): ")
 	io.flush()
 	
@@ -200,7 +200,7 @@ end
 -- @return Nothing.
 function errTest.expectFail(func, ...)
 
-	_assertType(1, func, "function")
+	_assertArgType(1, func, "function")
 	io.write("(expectFail) " .. _getLabel(func) .. "(" .. _varargsToString(...)  .. "): ")
 	io.flush()
 
@@ -222,7 +222,7 @@ end
 -- @return true on success, false if the function returned false/nil.
 function errTest.okErrTry(func, ...)
 
-	_assertType(1, func, "function")
+	_assertArgType(1, func, "function")
 	io.write("(okErrTry) " .. _getLabel(func) .. "(" .. _varargsToString(...)  .. "): ")
 	io.flush()
 
@@ -244,7 +244,7 @@ end
 -- @return Nothing.
 function errTest.okErrExpectPass(func, ...)
 
-	_assertType(1, func, "function")
+	_assertArgType(1, func, "function")
 	io.write("(okErrExpectPass) " .. _getLabel(func) .. "(" .. _varargsToString(...)  .. "): ")
 	io.flush()
 
@@ -266,7 +266,7 @@ end
 -- @return Nothing.
 function errTest.okErrExpectFail(func, ...)
 
-	_assertType(1, func, "function")
+	_assertArgType(1, func, "function")
 	io.write("(okErrExpectFail) " .. _getLabel(func) .. "(" .. _varargsToString(...)  .. "): ")
 	io.flush()
 
