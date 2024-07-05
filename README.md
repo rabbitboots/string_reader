@@ -1,3 +1,8 @@
+# Discontinued!
+
+This library has been discontinued in favour of [StringWalk](https://github.com/rabbitboots/string_walk).
+
+
 # stringReader
 
 Wrappers for Lua string functions.
